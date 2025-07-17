@@ -55,5 +55,6 @@ logs/
 tmp/
 temp/
 
-# Air live reload
-tmp/
+# Claude Code files
+claude/
+CLAUDE.md
