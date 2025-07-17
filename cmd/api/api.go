@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"portfolio-api/cmd/service/s3"
 	"portfolio-api/cmd/service/user"
 )
 
@@ -12,19 +13,19 @@ const (
 	APIPrefix  = "/api/" + APIVersion
 )
 
-type APIServer struct {
+type Server struct {
 	addr string
 	db   *sql.DB
 }
 
-func NewAPIServer(addr string, db *sql.DB) *APIServer {
-	return &APIServer{
+func NewAPIServer(addr string, db *sql.DB) *Server {
+	return &Server{
 		addr: addr,
 		db:   db,
 	}
 }
 
-func (s *APIServer) Run() error {
+func (s *Server) Run() error {
 	router := http.NewServeMux()
 
 	//add middleware here later
@@ -34,8 +35,11 @@ func (s *APIServer) Run() error {
 	userHandler := user.NewHandler()
 	userHandler.RegisterRoutes(apiV1Router)
 
+	s3Handler := s3.NewHandler()
+	s3Handler.RegisterRoutes(apiV1Router)
+
 	// Mount the subrouter at /api/v1/
-	router.Handle(APIPrefix, http.StripPrefix(APIPrefix, apiV1Router))
+	router.Handle(APIPrefix+"/", http.StripPrefix(APIPrefix, apiV1Router))
 
 	log.Println("Starting server on", s.addr)
 
