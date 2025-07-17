@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	_ "net/url"
-	"strings"
 	"time"
 )
 
@@ -24,7 +23,7 @@ func NewHandler() *Handler {
 }
 
 func (h *Handler) RegisterRoutes(router *http.ServeMux) {
-	router.HandleFunc("GET /pdfs/signed-url", h.handleGetSignedURL)
+	router.HandleFunc("GET /resume", h.handleGetSignedURL)
 }
 
 type SignedURLResponse struct {
@@ -42,16 +41,7 @@ func (h *Handler) handleGetSignedURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	key := r.URL.Query().Get("key")
-	if key == "" {
-		h.writeError(w, "key parameter is required", http.StatusBadRequest)
-		return
-	}
-
-	if !strings.HasSuffix(strings.ToLower(key), ".pdf") {
-		h.writeError(w, "only PDF files are supported", http.StatusBadRequest)
-		return
-	}
+	key := "resume/Resume.pdf"
 
 	expiration := 15 * time.Minute
 	if expStr := r.URL.Query().Get("expires_in"); expStr != "" {

@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"portfolio-api/cmd/service/s3"
-	"portfolio-api/cmd/service/user"
 )
 
 const (
@@ -32,8 +31,6 @@ func (s *Server) Run() error {
 
 	// Create a subrouter for /api/v1
 	apiV1Router := http.NewServeMux()
-	userHandler := user.NewHandler()
-	userHandler.RegisterRoutes(apiV1Router)
 
 	s3Handler := s3.NewHandler()
 	s3Handler.RegisterRoutes(apiV1Router)
