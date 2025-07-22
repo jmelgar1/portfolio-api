@@ -11,6 +11,10 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+type S3Service interface {
+	GenerateSignedURL(key string, expiration time.Duration) (string, error)
+}
+
 type Service struct {
 	client *s3.Client
 	bucket string

@@ -9,7 +9,7 @@ import (
 )
 
 type Handler struct {
-	service *Service
+	service S3Service
 }
 
 func NewHandler() *Handler {
