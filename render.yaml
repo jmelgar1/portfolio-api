@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: portfolio-api
+    env: go
+    buildCommand: go build -o portfolio-api cmd/main.go
+    startCommand: ./portfolio-api
+    plan: free
+    runtime: go1.24.5
+    envVars:
+      - key: PORT
+        value: 10000
