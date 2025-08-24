@@ -4,8 +4,8 @@ logging:
     software.amazon.awssdk: INFO
 
 aws:
-  region: ${AWS_REGION:us-east-1}
+  region: ${AWS_REGION}
   access-key-id: ${AWS_ACCESS_KEY_ID}
   secret-access-key: ${AWS_SECRET_ACCESS_KEY}
   s3:
-    bucket-name: ${AWS_S3_BUCKET:portfolio-website-storage-dev}
+    bucket-name: ${AWS_S3_BUCKET}
