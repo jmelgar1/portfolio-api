@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.dto.ResumeUrlResponse;
 import org.example.service.S3Service;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import java.time.Instant;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class ResumeController {
 
     private static final String RESUME_OBJECT_KEY = "resume/Resume.pdf";
